@@ -1,0 +1,1711 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+    <title>三身诀 · 极简修仙</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: #f2efe7;
+            font-family: -apple-system, 'SF Pro Text', 'SF Pro Display', 'Helvetica Neue', system-ui, sans-serif;
+            color: #2c2418;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 16px 16px 90px 16px;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 20px 18px;
+            margin-bottom: 16px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+            border: 1px solid #e8e4dc;
+        }
+
+        .title-section {
+            text-align: center;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #e8e4dc;
+        }
+        .system-name {
+            font-size: 24px;
+            letter-spacing: 4px;
+            font-weight: 500;
+            color: #3a3224;
+        }
+        .system-name small {
+            font-size: 11px;
+            letter-spacing: 1px;
+            opacity: 0.6;
+        }
+
+        .cultivation-panel {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 10px;
+        }
+        .realm-name {
+            font-size: 22px;
+            font-weight: 600;
+            color: #5a4a2e;
+        }
+        .realm-level {
+            font-size: 13px;
+            color: #9a8a6e;
+        }
+        .xp-bar-bg {
+            background: #e8e4dc;
+            border-radius: 10px;
+            height: 8px;
+            margin: 12px 0 8px;
+            overflow: hidden;
+        }
+        .xp-bar-fill {
+            background: #8b6b3e;
+            width: 0%;
+            height: 100%;
+            border-radius: 10px;
+            transition: width 0.3s;
+        }
+        .xp-text {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: #9a8a6e;
+        }
+
+        .element-grid {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+        .element-card {
+            flex: 1;
+            background: #f8f6f2;
+            border-radius: 16px;
+            padding: 12px 6px;
+            text-align: center;
+            border: 1px solid #e8e4dc;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .element-card.active {
+            border-color: #8b6b3e;
+            background: #ffffff;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+        .element-icon {
+            font-size: 24px;
+            margin-bottom: 6px;
+        }
+        .element-name {
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 4px;
+            color: #5a4a2e;
+        }
+        .element-value {
+            font-size: 18px;
+            font-weight: 600;
+            color: #5a4a2e;
+        }
+        .element-level {
+            font-size: 10px;
+            color: #b8a880;
+            margin-top: 4px;
+        }
+
+        .countdown-card {
+            background: #f8f6f2;
+            border-radius: 16px;
+            padding: 14px;
+            margin-bottom: 16px;
+            text-align: center;
+            border: 1px solid #e8e4dc;
+        }
+        .countdown-label {
+            font-size: 12px;
+            color: #9a8a6e;
+            letter-spacing: 1px;
+        }
+        .countdown-number {
+            font-size: 32px;
+            font-weight: 600;
+            color: #5a4a2e;
+            margin: 8px 0;
+        }
+        .countdown-target {
+            font-size: 12px;
+            background: #f0ede6;
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            color: #8b6b3e;
+        }
+
+        .cultivation-card {
+            background: #f8f6f2;
+            border-radius: 16px;
+            padding: 14px;
+            margin-bottom: 16px;
+            border: 1px solid #e8e4dc;
+        }
+        .cultivation-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 13px;
+        }
+        .cultivation-buttons {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 12px;
+        }
+        .cultivation-btn {
+            background: #f0ede6;
+            border: 1px solid #e0dcd4;
+            padding: 8px;
+            border-radius: 30px;
+            color: #5a4a2e;
+            font-size: 12px;
+            text-align: center;
+            cursor: pointer;
+        }
+        .streak-text {
+            font-size: 11px;
+            color: #b8a880;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .intake-card {
+            background: #f8f6f2;
+            border-radius: 16px;
+            padding: 14px;
+            margin-bottom: 16px;
+            border: 1px solid #e8e4dc;
+        }
+        .intake-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+        .intake-progress {
+            background: #e8e4dc;
+            border-radius: 10px;
+            height: 8px;
+            overflow: hidden;
+            margin-bottom: 12px;
+        }
+        .intake-progress-fill {
+            background: #8b6b3e;
+            width: 0%;
+            height: 100%;
+            border-radius: 10px;
+        }
+        .intake-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 12px;
+        }
+        .intake-btn {
+            flex: 1;
+            background: #f0ede6;
+            border: 1px solid #e0dcd4;
+            padding: 8px;
+            border-radius: 30px;
+            color: #5a4a2e;
+            font-size: 13px;
+            text-align: center;
+            cursor: pointer;
+        }
+        .intake-list {
+            margin-top: 12px;
+            max-height: 150px;
+            overflow-y: auto;
+        }
+        .intake-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 0;
+            font-size: 12px;
+            border-bottom: 1px solid #e8e4dc;
+        }
+
+        .quest-title {
+            font-size: 15px;
+            margin-bottom: 12px;
+            padding-left: 8px;
+            border-left: 3px solid #8b6b3e;
+            color: #5a4a2e;
+            font-weight: 500;
+        }
+        .quest-list {
+            min-height: 100px;
+        }
+        .quest-card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 12px 14px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid #e8e4dc;
+            transition: 0.1s;
+            cursor: grab;
+            user-select: none;
+            touch-action: none;
+        }
+        .quest-card:active {
+            cursor: grabbing;
+        }
+        .quest-card.dragging {
+            opacity: 0.3;
+            cursor: grabbing;
+        }
+        .quest-card.drag-over {
+            border-top: 2px solid #8b6b3e;
+            margin-top: -2px;
+        }
+        .quest-card.special {
+            border-left: 3px solid #b8a0d0;
+        }
+        .quest-card.limited {
+            border-left: 3px solid #e8b860;
+        }
+        .quest-card.normal {
+            border-left: 3px solid #9abc6a;
+        }
+        .drag-handle {
+            color: #c8b898;
+            font-size: 18px;
+            margin-right: 8px;
+            cursor: grab;
+            touch-action: none;
+        }
+        .quest-content {
+            flex: 1;
+        }
+        .quest-name {
+            font-size: 14px;
+            margin-bottom: 4px;
+            color: #3a3224;
+        }
+        .quest-meta {
+            font-size: 10px;
+            color: #b8a880;
+            display: flex;
+            gap: 10px;
+        }
+        .quest-xp {
+            color: #8b6b3e;
+        }
+        .quest-actions {
+            display: flex;
+            gap: 8px;
+        }
+        .quest-btn {
+            background: #f0ede6;
+            border: 1px solid #e0dcd4;
+            padding: 5px 14px;
+            border-radius: 30px;
+            color: #5a4a2e;
+            font-size: 12px;
+            cursor: pointer;
+        }
+        .delete-btn {
+            background: #f0ede6;
+            border: 1px solid #e0dcd4;
+            padding: 5px 10px;
+            border-radius: 30px;
+            color: #b86f6f;
+            font-size: 12px;
+            cursor: pointer;
+        }
+        .empty-quest {
+            text-align: center;
+            padding: 30px;
+            color: #b8a880;
+            font-size: 13px;
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            max-width: 600px;
+            margin: 0 auto;
+            background: #ffffff;
+            display: flex;
+            justify-content: space-around;
+            padding: 12px 20px 24px;
+            border-top: 1px solid #e8e4dc;
+            z-index: 100;
+        }
+        .nav-item {
+            text-align: center;
+            padding: 6px 0;
+            font-size: 12px;
+            cursor: pointer;
+            color: #b8a880;
+            transition: 0.1s;
+        }
+        .nav-item.active {
+            color: #5a4a2e;
+        }
+        .nav-icon {
+            font-size: 20px;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .fab {
+            position: fixed;
+            bottom: 85px;
+            right: 20px;
+            width: 48px;
+            height: 48px;
+            background: #ffffff;
+            border: 1px solid #e8e4dc;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            cursor: pointer;
+            color: #5a4a2e;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            z-index: 200;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 300;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            visibility: hidden;
+            opacity: 0;
+            transition: 0.2s;
+        }
+        .modal-overlay.show {
+            visibility: visible;
+            opacity: 1;
+        }
+        .modal-content {
+            background: #ffffff;
+            border-radius: 24px;
+            width: 85%;
+            max-width: 320px;
+            padding: 24px 20px;
+            border: 1px solid #e8e4dc;
+        }
+        .modal-content h3 {
+            font-size: 18px;
+            margin-bottom: 16px;
+            text-align: center;
+            color: #5a4a2e;
+            font-weight: 500;
+        }
+        .modal-content input, .modal-content select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 12px;
+            border: 1px solid #e0dcd4;
+            border-radius: 12px;
+            font-size: 14px;
+            background: #ffffff;
+        }
+        .modal-content button {
+            background: #f0ede6;
+            border: 1px solid #e0dcd4;
+            padding: 12px;
+            border-radius: 30px;
+            font-weight: 500;
+            width: 100%;
+            margin-top: 8px;
+            cursor: pointer;
+            color: #5a4a2e;
+        }
+        .modal-close {
+            background: #f8f6f2;
+        }
+
+        .calendar {
+            background: #f8f6f2;
+            border-radius: 16px;
+            padding: 12px;
+            margin-top: 16px;
+        }
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        .calendar-weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            text-align: center;
+            font-weight: 500;
+            font-size: 11px;
+            margin-bottom: 6px;
+            color: #9a8a6e;
+        }
+        .calendar-days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+        }
+        .calendar-day {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #ffffff;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 12px;
+            color: #5a4a2e;
+            border: 1px solid #e8e4dc;
+        }
+        .calendar-day.has-completed {
+            background: #8b6b3e;
+            color: white;
+            border-color: #8b6b3e;
+        }
+        .completed-list {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid #e8e4dc;
+        }
+        .completed-item {
+            background: #f8f6f2;
+            padding: 6px 10px;
+            border-radius: 12px;
+            margin-bottom: 5px;
+            font-size: 12px;
+        }
+
+        .stage-grid {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+        }
+        .stage-progress-card {
+            flex: 1;
+            background: #f8f6f2;
+            border-radius: 16px;
+            padding: 14px 8px;
+            text-align: center;
+            border: 1px solid #e8e4dc;
+            cursor: pointer;
+        }
+        .stage-progress-card.active {
+            border-color: #8b6b3e;
+            background: #ffffff;
+        }
+        .stage-icon {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+        .stage-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: #5a4a2e;
+            margin-bottom: 4px;
+        }
+        .stage-progress {
+            font-size: 24px;
+            font-weight: 600;
+            color: #8b6b3e;
+            margin: 8px 0;
+        }
+        .stage-total {
+            font-size: 11px;
+            color: #b8a880;
+        }
+        .stage-bar-bg {
+            background: #e8e4dc;
+            border-radius: 6px;
+            height: 4px;
+            margin-top: 8px;
+            overflow: hidden;
+        }
+        .stage-bar-fill {
+            background: #8b6b3e;
+            height: 100%;
+            width: 0%;
+            border-radius: 6px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+        .action-btn {
+            flex: 1;
+            background: #f0ede6;
+            padding: 8px;
+            border-radius: 30px;
+            text-align: center;
+            font-size: 12px;
+            cursor: pointer;
+            color: #5a4a2e;
+        }
+        .footprint {
+            text-align: center;
+            margin-top: 16px;
+            font-size: 10px;
+            color: #c8b898;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container" id="mainContent"></div>
+
+<div class="bottom-nav">
+    <div class="nav-item" data-page="lichen">🌿 历尘</div>
+    <div class="nav-item" data-page="wudao">📖 悟道</div>
+    <div class="nav-item" data-page="tixiu">💪 体修</div>
+    <div class="nav-item" data-page="settings">⚙️ 天命</div>
+</div>
+
+<div class="fab" id="fabBtn">+</div>
+
+<!-- 添加功课弹窗 -->
+<div id="taskModal" class="modal-overlay">
+    <div class="modal-content">
+        <h3>📜 发布新功课</h3>
+        <input type="text" id="taskName" placeholder="功课名称">
+        <select id="taskType">
+            <option value="special">✨ 奇遇</option>
+            <option value="limited">⏰ 试炼</option>
+            <option value="normal">🌿 日常</option>
+        </select>
+        <input type="number" id="taskXP" placeholder="修为值" value="1" min="1">
+        <div style="display: flex; gap: 10px; margin-bottom: 12px;">
+            <label><input type="checkbox" id="repeatable"> 可重复</label>
+            <label><input type="checkbox" id="scheduledEnable"> 每日定时</label>
+        </div>
+        <div id="scheduledTimeBox" style="display:none;">
+            <input type="time" id="scheduledTime" value="09:00">
+        </div>
+        <button id="confirmAddTask">✅ 发布</button>
+        <button class="modal-close" onclick="closeTaskModal()">取消</button>
+    </div>
+</div>
+
+<!-- 摄入弹窗 -->
+<div id="intakeModal" class="modal-overlay">
+    <div class="modal-content">
+        <h3>🍽️ 记录摄入</h3>
+        <input type="text" id="intakeName" placeholder="食物名称">
+        <input type="number" id="intakeCal" placeholder="卡路里">
+        <button id="confirmAddIntake">📝 添加</button>
+        <button class="modal-close" onclick="closeIntakeModal()">取消</button>
+    </div>
+</div>
+
+<!-- 运动消耗弹窗 -->
+<div id="expendModal" class="modal-overlay">
+    <div class="modal-content">
+        <h3>🏃 记录运动消耗</h3>
+        <input type="text" id="expendName" placeholder="运动项目">
+        <input type="number" id="expendCal" placeholder="消耗卡路里">
+        <button id="confirmAddExpend">📝 添加</button>
+        <button class="modal-close" onclick="closeExpendModal()">取消</button>
+    </div>
+</div>
+
+<!-- 成就弹窗 -->
+<div id="achievementModal" class="modal-overlay">
+    <div class="modal-content">
+        <h3>🏆 创建称号</h3>
+        <input type="text" id="achievementName" placeholder="称号名称">
+        <select id="achievementType">
+            <option value="total_xp">总修为</option>
+            <option value="complete_count">完成功课次数</option>
+            <option value="continuous_days">连续修行天数</option>
+        </select>
+        <input type="number" id="achievementTarget" placeholder="目标数值">
+        <input type="number" id="achievementReward" placeholder="奖励修为">
+        <button id="confirmAddAchievement">🏆 创建</button>
+        <button class="modal-close" onclick="closeAchievementModal()">取消</button>
+    </div>
+</div>
+
+<!-- 倒计时设置弹窗 -->
+<div id="countdownModal" class="modal-overlay">
+    <div class="modal-content">
+        <h3>📅 设置倒计时</h3>
+        <input type="date" id="countdownDate">
+        <input type="text" id="countdownDesc" placeholder="目标描述" value="飞升之日">
+        <button id="confirmCountdown">🎯 保存</button>
+        <button class="modal-close" onclick="closeCountdownModal()">取消</button>
+    </div>
+</div>
+
+<script>
+    // ========== 三身诀 极简修仙数据 ==========
+    const STORAGE = {
+        LICHEN: 'sanshen_lichen',
+        WUDAO: 'sanshen_wudao',
+        TIXIU: 'sanshen_tixiu',
+        TIXIU_EXTRA: 'sanshen_tixiu_extra',
+        TASKS: 'sanshen_tasks',
+        COMPLETIONS: 'sanshen_completions',
+        TASK_ORDER: 'sanshen_task_order',
+        ACHIEVEMENTS: 'sanshen_achievements',
+        UNLOCKED: 'sanshen_unlocked',
+        COUNTDOWN: 'sanshen_countdown',
+        INTAKE: 'sanshen_intake'
+    };
+
+    const REALMS = [
+        { level: 1, name: "凡尘", needXp: 1000 },
+        { level: 2, name: "筑基", needXp: 2000 },
+        { level: 3, name: "金丹", needXp: 3000 },
+        { level: 4, name: "元婴", needXp: 4000 },
+        { level: 5, name: "出窍", needXp: 5000 },
+        { level: 6, name: "分神", needXp: 6000 },
+        { level: 7, name: "化神", needXp: 7000 },
+        { level: 8, name: "渡劫", needXp: 8000 },
+        { level: 9, name: "大乘", needXp: 9000 },
+        { level: 10, name: "飞升", needXp: 10000 }
+    ];
+
+    const LICHEN_LEVELS = [
+        { level: 1, name: "凡心", needXp: 0 },
+        { level: 2, name: "涉世", needXp: 200 },
+        { level: 3, name: "历缘", needXp: 430 },
+        { level: 4, name: "炼情", needXp: 690 },
+        { level: 5, name: "明我", needXp: 990 },
+        { level: 6, name: "守真", needXp: 1350 },
+        { level: 7, name: "超然", needXp: 1800 },
+        { level: 8, name: "红尘炼心", needXp: 2500, isMax: true }
+    ];
+
+    const WUDAO_LEVELS = [
+        { level: 1, name: "蒙昧", needXp: 0 },
+        { level: 2, name: "知微", needXp: 250 },
+        { level: 3, name: "见性", needXp: 530 },
+        { level: 4, name: "通玄", needXp: 840 },
+        { level: 5, name: "破妄", needXp: 1180 },
+        { level: 6, name: "归一", needXp: 1560 },
+        { level: 7, name: "忘我", needXp: 1980 },
+        { level: 8, name: "合道", needXp: 2460 },
+        { level: 9, name: "圆融", needXp: 3000 },
+        { level: 10, name: "大彻", needXp: 3650 },
+        { level: 11, name: "证道飞升", needXp: 5000, isMax: true }
+    ];
+
+    const TIXIU_LEVELS = [
+        { level: 1, name: "凡躯", needXp: 0 },
+        { level: 2, name: "淬皮", needXp: 200 },
+        { level: 3, name: "锻肉", needXp: 430 },
+        { level: 4, name: "炼筋", needXp: 690 },
+        { level: 5, name: "铸骨", needXp: 990 },
+        { level: 6, name: "易髓", needXp: 1350 },
+        { level: 7, name: "不坏", needXp: 1800 },
+        { level: 8, name: "金刚不坏", needXp: 2500, isMax: true }
+    ];
+
+    let lichen = { xp: 0, level: 1 };
+    let wudao = { xp: 0, level: 1 };
+    let tixiu = { xp: 0, level: 1 };
+    let tixiuExtra = { todayBasic: false, todayWorkout: false, streak: 0, lastDate: null, bigWorkoutCount: 0 };
+    let intakeData = { todayIntake: 0, todayExpend: 0, records: [], lastDate: null };
+    let tasks = [];
+    let completions = [];
+    let taskOrder = {};
+    let achievements = [];
+    let unlockedAchievements = [];
+    let countdownData = { targetDate: null, description: "飞升之日" };
+    let currentPage = 'lichen';
+    let scheduledTasks = {};
+
+    function getTodayStr() {
+        let d = new Date();
+        return `${d.getFullYear()}-${(d.getMonth()+1).toString().padStart(2,'0')}-${d.getDate().toString().padStart(2,'0')}`;
+    }
+
+    function getTotalXp() { return lichen.xp + wudao.xp + tixiu.xp; }
+
+    function getTotalRealm() {
+        let total = getTotalXp();
+        for (let i = REALMS.length - 1; i >= 0; i--) {
+            if (total >= REALMS[i].needXp) return REALMS[i];
+        }
+        return REALMS[0];
+    }
+
+    function getModuleLevel(moduleXp, levelTable) {
+        for (let i = levelTable.length - 1; i >= 0; i--) {
+            if (moduleXp >= levelTable[i].needXp) return levelTable[i];
+        }
+        return levelTable[0];
+    }
+
+    function getCurrentLevelIndex(moduleXp, levelTable) {
+        for (let i = levelTable.length - 1; i >= 0; i--) {
+            if (moduleXp >= levelTable[i].needXp) return i;
+        }
+        return 0;
+    }
+
+    function checkZhenXian() {
+        return getTotalXp() >= 10000 && lichen.xp >= 2500 && wudao.xp >= 5000 && tixiu.xp >= 2500;
+    }
+
+    function addXp(module, amount) {
+        if (module === 'lichen') {
+            lichen.xp += amount;
+            if (lichen.xp < 0) lichen.xp = 0;
+            let newLevel = getModuleLevel(lichen.xp, LICHEN_LEVELS);
+            if (newLevel.level > lichen.level) alert(`🌿 历尘突破！${newLevel.name}`);
+            lichen.level = newLevel.level;
+            saveLichen();
+        } else if (module === 'wudao') {
+            wudao.xp += amount;
+            if (wudao.xp < 0) wudao.xp = 0;
+            let newLevel = getModuleLevel(wudao.xp, WUDAO_LEVELS);
+            if (newLevel.level > wudao.level) alert(`📖 悟道突破！${newLevel.name}`);
+            wudao.level = newLevel.level;
+            saveWudao();
+        } else if (module === 'tixiu') {
+            tixiu.xp += amount;
+            if (tixiu.xp < 0) tixiu.xp = 0;
+            let newLevel = getModuleLevel(tixiu.xp, TIXIU_LEVELS);
+            if (newLevel.level > tixiu.level) alert(`💪 体修突破！${newLevel.name}`);
+            tixiu.level = newLevel.level;
+            saveTixiu();
+        }
+        
+        let total = getTotalXp();
+        let prevTotal = total - amount;
+        let prevRealm = REALMS.find(r => prevTotal < r.needXp && total >= r.needXp);
+        if (prevRealm && prevRealm.level > 1) alert(`✨ 总境界突破！${prevRealm.name}`);
+        if (checkZhenXian()) alert(`🏆 恭喜！你已证道真仙！`);
+        
+        checkAchievements();
+        renderCurrentPage();
+    }
+
+    function doBasicWorkout() {
+        let today = getTodayStr();
+        if (tixiuExtra.lastDate !== today) {
+            tixiuExtra.lastDate = today;
+            tixiuExtra.todayBasic = false;
+            tixiuExtra.todayWorkout = false;
+        }
+        if (tixiuExtra.todayBasic) { alert("今日已完成基础修行"); return; }
+        addXp('tixiu', 5);
+        tixiuExtra.todayBasic = true;
+        saveTixiuExtra();
+        renderCurrentPage();
+        alert(`💪 基础修行完成！获得 5 修为`);
+    }
+
+    function doDailyWorkout() {
+        let today = getTodayStr();
+        if (tixiuExtra.lastDate !== today) {
+            tixiuExtra.lastDate = today;
+            tixiuExtra.todayBasic = false;
+            tixiuExtra.todayWorkout = false;
+        }
+        if (tixiuExtra.todayWorkout) { alert("今日已完成锻炼"); return; }
+        let gain = 5;
+        tixiuExtra.streak++;
+        if (tixiuExtra.streak >= 30) gain += 20;
+        else if (tixiuExtra.streak >= 7) gain += 10;
+        else if (tixiuExtra.streak >= 3) gain += 5;
+        addXp('tixiu', gain);
+        tixiuExtra.todayWorkout = true;
+        saveTixiuExtra();
+        renderCurrentPage();
+        alert(`💪 锻炼完成！获得 ${gain} 修为 (连续${tixiuExtra.streak}天)`);
+    }
+
+    function doBigWorkout() {
+        let today = getTodayStr();
+        if (tixiuExtra.lastDate !== today) {
+            tixiuExtra.lastDate = today;
+            tixiuExtra.todayBasic = false;
+            tixiuExtra.todayWorkout = false;
+        }
+        let gain = 20;
+        tixiuExtra.bigWorkoutCount++;
+        tixiuExtra.streak++;
+        if (tixiuExtra.streak >= 30) gain += 20;
+        else if (tixiuExtra.streak >= 7) gain += 10;
+        else if (tixiuExtra.streak >= 3) gain += 5;
+        addXp('tixiu', gain);
+        tixiuExtra.todayWorkout = true;
+        saveTixiuExtra();
+        renderCurrentPage();
+        alert(`⚡ 大锻炼完成！获得 ${gain} 修为 (连续${tixiuExtra.streak}天)`);
+    }
+
+    function checkAndResetTixiu() {
+        let today = getTodayStr();
+        if (tixiuExtra.lastDate !== today) {
+            if (tixiuExtra.lastDate) {
+                if (!tixiuExtra.todayBasic && !tixiuExtra.todayWorkout) {
+                    addXp('tixiu', -5);
+                    tixiuExtra.streak = 0;
+                }
+            }
+            tixiuExtra.todayBasic = false;
+            tixiuExtra.todayWorkout = false;
+            tixiuExtra.lastDate = today;
+            saveTixiuExtra();
+        }
+    }
+
+    function checkAndResetIntake() {
+        let today = getTodayStr();
+        if (intakeData.lastDate !== today) {
+            intakeData.todayIntake = 0;
+            intakeData.todayExpend = 0;
+            intakeData.records = [];
+            intakeData.lastDate = today;
+            saveIntake();
+        }
+    }
+
+    function addIntake(name, calories) {
+        intakeData.todayIntake += calories;
+        intakeData.records.push({ type: 'intake', name, calories, time: new Date().toLocaleTimeString() });
+        saveIntake();
+        renderCurrentPage();
+    }
+
+    function addExpend(name, calories) {
+        intakeData.todayExpend += calories;
+        intakeData.records.push({ type: 'expend', name, calories, time: new Date().toLocaleTimeString() });
+        saveIntake();
+        renderCurrentPage();
+    }
+
+    function completeTask(task) {
+        let today = getTodayStr();
+        completions.push({ taskId: task.id, date: today, xp: task.xpReward, name: task.name, module: task.module });
+        addXp(task.module, task.xpReward);
+        saveCompletions();
+        if (!task.repeatable) {
+            tasks = tasks.filter(t => t.id !== task.id);
+            saveTasks();
+        }
+        renderCurrentPage();
+    }
+
+    function deleteTask(taskId) {
+        if (confirm("删除这个功课？")) {
+            tasks = tasks.filter(t => t.id !== taskId);
+            saveTasks();
+            renderCurrentPage();
+        }
+    }
+
+    function getSortedTasks(moduleTasks) {
+        let special = moduleTasks.filter(t => t.type === 'special');
+        let limited = moduleTasks.filter(t => t.type === 'limited');
+        let normal = moduleTasks.filter(t => t.type === 'normal');
+        let sortByOrder = (arr) => arr.sort((a,b) => (taskOrder[`${currentPage}_${a.id}`] ?? 9999) - (taskOrder[`${currentPage}_${b.id}`] ?? 9999));
+        return [...sortByOrder(special), ...sortByOrder(limited), ...sortByOrder(normal)];
+    }
+
+    function updateTaskOrder(tasksArray) {
+        tasksArray.forEach((task, idx) => {
+            taskOrder[`${currentPage}_${task.id}`] = idx;
+        });
+        saveTaskOrder();
+    }
+
+    function checkAchievements() {
+        let stats = { total_xp: getTotalXp(), complete_count: completions.length, continuous_days: tixiuExtra.streak };
+        achievements.forEach(ach => {
+            if (!unlockedAchievements.includes(ach.id) && stats[ach.type] >= ach.target) {
+                unlockedAchievements.push(ach.id);
+                addXp('lichen', ach.reward);
+                alert(`🏆 解锁称号：${ach.name}！获得 ${ach.reward} 修为`);
+                saveAchievements();
+            }
+        });
+    }
+
+    function getCountdownDays() {
+        if (!countdownData.targetDate) return null;
+        let today = new Date(); today.setHours(0,0,0,0);
+        let target = new Date(countdownData.targetDate); target.setHours(0,0,0,0);
+        return Math.ceil((target - today) / (1000*60*60*24));
+    }
+
+    function checkScheduledTasks() {
+        let today = getTodayStr();
+        let now = new Date();
+        let currentTime = `${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}`;
+        
+        tasks.forEach(task => {
+            if (task.scheduledTime && task.scheduledTime === currentTime && !scheduledTasks[`${task.id}_${today}`]) {
+                scheduledTasks[`${task.id}_${today}`] = true;
+                alert(`⏰ 定时功课提醒：${task.name}`);
+            }
+        });
+    }
+
+    setInterval(checkScheduledTasks, 60000);
+
+    function dailySettlement() {
+        checkAndResetTixiu();
+        checkAndResetIntake();
+    }
+    
+    let lastDate = getTodayStr();
+    setInterval(() => {
+        let today = getTodayStr();
+        if (today !== lastDate) {
+            dailySettlement();
+            lastDate = today;
+            renderCurrentPage();
+        }
+    }, 60000);
+
+    // 通用拖拽排序函数（支持触摸和鼠标）
+    function initDragAndDrop(containerId, itemsSelector, onReorder) {
+        const container = document.getElementById(containerId);
+        if (!container) return;
+        
+        let dragSrc = null;
+        let dragOverItem = null;
+        
+        const handleDragStart = (e) => {
+            dragSrc = e.target.closest(itemsSelector);
+            if (!dragSrc) return;
+            e.dataTransfer?.setData('text/plain', dragSrc.dataset.id);
+            dragSrc.classList.add('dragging');
+            e.dataTransfer?.setDragImage(new Image(), 0, 0);
+        };
+        
+        const handleDragEnd = (e) => {
+            document.querySelectorAll(itemsSelector).forEach(el => el.classList.remove('dragging', 'drag-over'));
+            dragSrc = null;
+        };
+        
+        const handleDragOver = (e) => {
+            e.preventDefault();
+            const target = e.target.closest(itemsSelector);
+            if (!target || target === dragSrc) return;
+            target.classList.add('drag-over');
+            e.dataTransfer.dropEffect = 'move';
+        };
+        
+        const handleDragLeave = (e) => {
+            const target = e.target.closest(itemsSelector);
+            if (target) target.classList.remove('drag-over');
+        };
+        
+        const handleDrop = (e) => {
+            e.preventDefault();
+            const target = e.target.closest(itemsSelector);
+            if (!target || !dragSrc || target === dragSrc) {
+                if (target) target.classList.remove('drag-over');
+                return;
+            }
+            
+            const srcId = parseInt(dragSrc.dataset.id);
+            const dstId = parseInt(target.dataset.id);
+            
+            const items = Array.from(container.querySelectorAll(itemsSelector));
+            const srcIndex = items.findIndex(item => parseInt(item.dataset.id) === srcId);
+            const dstIndex = items.findIndex(item => parseInt(item.dataset.id) === dstId);
+            
+            if (srcIndex !== -1 && dstIndex !== -1) {
+                onReorder(srcIndex, dstIndex);
+            }
+            
+            target.classList.remove('drag-over');
+        };
+        
+        // 触摸事件支持（移动端）
+        let touchStartY = 0;
+        let touchStartX = 0;
+        let touchTarget = null;
+        
+        const handleTouchStart = (e) => {
+            const target = e.target.closest(itemsSelector);
+            if (!target) return;
+            touchTarget = target;
+            touchStartY = e.touches[0].clientY;
+            touchStartX = e.touches[0].clientX;
+            target.style.opacity = '0.5';
+        };
+        
+        const handleTouchMove = (e) => {
+            if (!touchTarget) return;
+            e.preventDefault();
+            const moveY = e.touches[0].clientY;
+            const moveX = e.touches[0].clientX;
+            const deltaY = Math.abs(moveY - touchStartY);
+            const deltaX = Math.abs(moveX - touchStartX);
+            
+            if (deltaY < 10 && deltaX < 10) return;
+            
+            const elements = document.elementsFromPoint(e.touches[0].clientX, e.touches[0].clientY);
+            const targetElement = elements.find(el => el.closest && el.closest(itemsSelector) && el.closest(itemsSelector) !== touchTarget);
+            const target = targetElement?.closest(itemsSelector);
+            
+            if (target && target !== touchTarget) {
+                document.querySelectorAll(itemsSelector).forEach(el => el.classList.remove('drag-over'));
+                target.classList.add('drag-over');
+            }
+        };
+        
+        const handleTouchEnd = (e) => {
+            if (!touchTarget) {
+                if (dragOverItem) dragOverItem.classList.remove('drag-over');
+                return;
+            }
+            
+            const elements = document.elementsFromPoint(e.changedTouches[0].clientX, e.changedTouches[0].clientY);
+            const targetElement = elements.find(el => el.closest && el.closest(itemsSelector) && el.closest(itemsSelector) !== touchTarget);
+            const target = targetElement?.closest(itemsSelector);
+            
+            if (target && target !== touchTarget) {
+                const srcId = parseInt(touchTarget.dataset.id);
+                const dstId = parseInt(target.dataset.id);
+                
+                const items = Array.from(container.querySelectorAll(itemsSelector));
+                const srcIndex = items.findIndex(item => parseInt(item.dataset.id) === srcId);
+                const dstIndex = items.findIndex(item => parseInt(item.dataset.id) === dstId);
+                
+                if (srcIndex !== -1 && dstIndex !== -1) {
+                    onReorder(srcIndex, dstIndex);
+                }
+            }
+            
+            touchTarget.style.opacity = '';
+            touchTarget = null;
+            document.querySelectorAll(itemsSelector).forEach(el => el.classList.remove('drag-over'));
+        };
+        
+        container.querySelectorAll(itemsSelector).forEach(item => {
+            item.setAttribute('draggable', 'true');
+            item.addEventListener('dragstart', handleDragStart);
+            item.addEventListener('dragend', handleDragEnd);
+            item.addEventListener('dragover', handleDragOver);
+            item.addEventListener('dragleave', handleDragLeave);
+            item.addEventListener('drop', handleDrop);
+            item.addEventListener('touchstart', handleTouchStart, { passive: false });
+            item.addEventListener('touchmove', handleTouchMove, { passive: false });
+            item.addEventListener('touchend', handleTouchEnd);
+        });
+    }
+
+    function renderCurrentPage() {
+        let container = document.getElementById('mainContent');
+        if (currentPage === 'lichen') renderLichenPage(container);
+        else if (currentPage === 'wudao') renderWudaoPage(container);
+        else if (currentPage === 'tixiu') renderTixiuPage(container);
+        else if (currentPage === 'settings') renderSettingsPage(container);
+    }
+
+    function renderLichenPage(container) {
+        let levelInfo = getModuleLevel(lichen.xp, LICHEN_LEVELS);
+        let nextLevel = LICHEN_LEVELS.find(l => l.needXp > lichen.xp);
+        let currentXp = lichen.xp - (LICHEN_LEVELS[levelInfo.level-1]?.needXp || 0);
+        let needXp = nextLevel ? nextLevel.needXp - (LICHEN_LEVELS[levelInfo.level-1]?.needXp || 0) : 100;
+        let percent = (currentXp / needXp) * 100;
+        
+        let moduleTasks = tasks.filter(t => t.module === 'lichen');
+        let activeTasks = moduleTasks.filter(t => !(!t.repeatable && completions.some(c => c.taskId === t.id && c.date === getTodayStr())));
+        let sorted = getSortedTasks(activeTasks);
+        
+        let tasksHtml = '';
+        for (let task of sorted) {
+            tasksHtml += `
+                <div class="quest-card ${task.type}" data-id="${task.id}">
+                    <div class="drag-handle">⋮⋮</div>
+                    <div class="quest-content">
+                        <div class="quest-name">${escapeHtml(task.name)}</div>
+                        <div class="quest-meta"><span class="quest-xp">+${task.xpReward} 修为</span>${task.repeatable ? '<span>可重复</span>' : ''}${task.scheduledTime ? `<span>⏰ ${task.scheduledTime}</span>` : ''}</div>
+                    </div>
+                    <div class="quest-actions">
+                        <button class="delete-btn" data-id="${task.id}">❌</button>
+                        <button class="quest-btn" data-id="${task.id}">修行</button>
+                    </div>
+                </div>
+            `;
+        }
+        
+        if (tasksHtml === '') tasksHtml = '<div class="empty-quest">🌿 暂无功课，点右下角+发布</div>';
+        
+        container.innerHTML = `
+            <div class="card">
+                <div class="title-section"><div class="system-name">历尘 · 入世修心</div></div>
+                <div class="cultivation-panel"><span class="realm-name">${levelInfo.name}</span><span class="realm-level">Lv.${levelInfo.level}</span></div>
+                <div class="xp-bar-bg"><div class="xp-bar-fill" style="width:${percent}%"></div></div>
+                <div class="xp-text"><span>🌿 ${currentXp} / ${needXp}</span><span>累计 ${lichen.xp} / 2500</span></div>
+            </div>
+            <div class="card">
+                <div class="quest-title">📜 今日功课</div>
+                <div class="quest-list" id="questList">${tasksHtml}</div>
+                <div class="footprint">按住⋮⋮可拖动排序</div>
+            </div>
+        `;
+        
+        bindTaskEvents();
+        initDragAndDrop('questList', '.quest-card', (srcIdx, dstIdx) => {
+            let moduleTasks = tasks.filter(t => t.module === 'lichen');
+            let activeTasks = moduleTasks.filter(t => !(!t.repeatable && completions.some(c => c.taskId === t.id && c.date === getTodayStr())));
+            let sorted = getSortedTasks(activeTasks);
+            if (srcIdx >= 0 && srcIdx < sorted.length && dstIdx >= 0 && dstIdx < sorted.length) {
+                let newOrder = [...sorted];
+                let [moved] = newOrder.splice(srcIdx, 1);
+                newOrder.splice(dstIdx, 0, moved);
+                updateTaskOrder(newOrder);
+                renderCurrentPage();
+            }
+        });
+    }
+
+    function renderWudaoPage(container) {
+        let levelInfo = getModuleLevel(wudao.xp, WUDAO_LEVELS);
+        let nextLevel = WUDAO_LEVELS.find(l => l.needXp > wudao.xp);
+        let currentXp = wudao.xp - (WUDAO_LEVELS[levelInfo.level-1]?.needXp || 0);
+        let needXp = nextLevel ? nextLevel.needXp - (WUDAO_LEVELS[levelInfo.level-1]?.needXp || 0) : 100;
+        let percent = (currentXp / needXp) * 100;
+        
+        let days = getCountdownDays();
+        let countdownHtml = `<div class="countdown-card"><div class="countdown-label">📅 ${countdownData.description}</div>
+            <div class="countdown-number">${days !== null ? (days >= 0 ? days : 0) : '未设置'} 天</div>
+            <div class="countdown-target" onclick="openCountdownModal()">${countdownData.targetDate || '点击设置目标日'}</div></div>`;
+        
+        let moduleTasks = tasks.filter(t => t.module === 'wudao');
+        let activeTasks = moduleTasks.filter(t => !(!t.repeatable && completions.some(c => c.taskId === t.id && c.date === getTodayStr())));
+        let sorted = getSortedTasks(activeTasks);
+        
+        let tasksHtml = '';
+        for (let task of sorted) {
+            tasksHtml += `
+                <div class="quest-card ${task.type}" data-id="${task.id}">
+                    <div class="drag-handle">⋮⋮</div>
+                    <div class="quest-content">
+                        <div class="quest-name">${escapeHtml(task.name)}</div>
+                        <div class="quest-meta"><span class="quest-xp">+${task.xpReward} 修为</span>${task.repeatable ? '<span>可重复</span>' : ''}${task.scheduledTime ? `<span>⏰ ${task.scheduledTime}</span>` : ''}</div>
+                    </div>
+                    <div class="quest-actions">
+                        <button class="delete-btn" data-id="${task.id}">❌</button>
+                        <button class="quest-btn" data-id="${task.id}">修行</button>
+                    </div>
+                </div>
+            `;
+        }
+        
+        if (tasksHtml === '') tasksHtml = '<div class="empty-quest">📖 暂无功课，点右下角+发布</div>';
+        
+        container.innerHTML = `
+            <div class="card">
+                <div class="title-section"><div class="system-name">悟道 · 明心见性</div></div>
+                <div class="cultivation-panel"><span class="realm-name">${levelInfo.name}</span><span class="realm-level">Lv.${levelInfo.level}</span></div>
+                <div class="xp-bar-bg"><div class="xp-bar-fill" style="width:${percent}%"></div></div>
+                <div class="xp-text"><span>📖 ${currentXp} / ${needXp}</span><span>累计 ${wudao.xp} / 5000</span></div>
+            </div>
+            ${countdownHtml}
+            <div class="card">
+                <div class="quest-title">📜 今日功课</div>
+                <div class="quest-list" id="questList">${tasksHtml}</div>
+                <div class="footprint">按住⋮⋮可拖动排序</div>
+            </div>
+        `;
+        
+        bindTaskEvents();
+        initDragAndDrop('questList', '.quest-card', (srcIdx, dstIdx) => {
+            let moduleTasks = tasks.filter(t => t.module === 'wudao');
+            let activeTasks = moduleTasks.filter(t => !(!t.repeatable && completions.some(c => c.taskId === t.id && c.date === getTodayStr())));
+            let sorted = getSortedTasks(activeTasks);
+            if (srcIdx >= 0 && srcIdx < sorted.length && dstIdx >= 0 && dstIdx < sorted.length) {
+                let newOrder = [...sorted];
+                let [moved] = newOrder.splice(srcIdx, 1);
+                newOrder.splice(dstIdx, 0, moved);
+                updateTaskOrder(newOrder);
+                renderCurrentPage();
+            }
+        });
+    }
+
+    function renderTixiuPage(container) {
+        checkAndResetTixiu();
+        checkAndResetIntake();
+        
+        let levelInfo = getModuleLevel(tixiu.xp, TIXIU_LEVELS);
+        let nextLevel = TIXIU_LEVELS.find(l => l.needXp > tixiu.xp);
+        let currentXp = tixiu.xp - (TIXIU_LEVELS[levelInfo.level-1]?.needXp || 0);
+        let needXp = nextLevel ? nextLevel.needXp - (TIXIU_LEVELS[levelInfo.level-1]?.needXp || 0) : 100;
+        let percent = (currentXp / needXp) * 100;
+        
+        let netIntake = intakeData.todayIntake - intakeData.todayExpend;
+        let intakePercent = intakeData.todayIntake > 0 ? (intakeData.todayIntake / (intakeData.todayIntake + 100)) * 100 : 0;
+        
+        let recordsHtml = '';
+        for (let r of intakeData.records.slice().reverse()) {
+            let icon = r.type === 'intake' ? '🍽️' : '🏃';
+            let color = r.type === 'intake' ? '#8b6b3e' : '#6a9e3a';
+            recordsHtml += `<div class="intake-item"><span>${icon} ${escapeHtml(r.name)}</span><span style="color:${color}">${r.type === 'intake' ? '+' : '-'}${r.calories}</span></div>`;
+        }
+        
+        let basicStatus = tixiuExtra.todayBasic ? '✅' : '⭕';
+        let workoutStatus = tixiuExtra.todayWorkout ? '✅' : '⭕';
+        
+        let moduleTasks = tasks.filter(t => t.module === 'tixiu');
+        let activeTasks = moduleTasks.filter(t => !(!t.repeatable && completions.some(c => c.taskId === t.id && c.date === getTodayStr())));
+        let sorted = getSortedTasks(activeTasks);
+        
+        let tasksHtml = '';
+        for (let task of sorted) {
+            tasksHtml += `
+                <div class="quest-card ${task.type}" data-id="${task.id}">
+                    <div class="drag-handle">⋮⋮</div>
+                    <div class="quest-content">
+                        <div class="quest-name">💪 ${escapeHtml(task.name)}</div>
+                        <div class="quest-meta"><span class="quest-xp">+${task.xpReward} 修为</span>${task.repeatable ? '<span>可重复</span>' : ''}${task.scheduledTime ? `<span>⏰ ${task.scheduledTime}</span>` : ''}</div>
+                    </div>
+                    <div class="quest-actions">
+                        <button class="delete-btn" data-id="${task.id}">❌</button>
+                        <button class="quest-btn" data-id="${task.id}">修行</button>
+                    </div>
+                </div>
+            `;
+        }
+        
+        if (tasksHtml === '') tasksHtml = '<div class="empty-quest">💪 暂无体修功课，点右下角+发布</div>';
+        
+        container.innerHTML = `
+            <div class="card">
+                <div class="title-section"><div class="system-name">体修 · 锤炼肉身</div></div>
+                <div class="cultivation-panel"><span class="realm-name">${levelInfo.name}</span><span class="realm-level">Lv.${levelInfo.level}</span></div>
+                <div class="xp-bar-bg"><div class="xp-bar-fill" style="width:${percent}%"></div></div>
+                <div class="xp-text"><span>💪 ${currentXp} / ${needXp}</span><span>累计 ${tixiu.xp} / 2500</span></div>
+            </div>
+            <div class="cultivation-card">
+                <div class="cultivation-stats"><span>🔥 连续修行</span><span>${tixiuExtra.streak} 天</span></div>
+                <div class="cultivation-stats"><span>基础修行 ${basicStatus}</span><span>锻炼 ${workoutStatus}</span></div>
+                <div class="cultivation-stats"><span>⚡ 大锻炼次数</span><span>${tixiuExtra.bigWorkoutCount} 次</span></div>
+                <div class="cultivation-buttons">
+                    <div class="cultivation-btn" onclick="doBasicWorkout()">🧘 基础修行 +5</div>
+                    <div class="cultivation-btn" onclick="doDailyWorkout()">🏃 锻炼 +5</div>
+                    <div class="cultivation-btn" onclick="doBigWorkout()">⚡ 大锻炼 +20</div>
+                    <div class="cultivation-btn" onclick="alert('未完成修行将扣除5修为，请在今日完成任意修行')">⚠️ 未完成 -5</div>
+                </div>
+                <div class="streak-text">连续3天+5 | 7天+10 | 30天+20 | 基础修行不叠加连续</div>
+            </div>
+            <div class="intake-card">
+                <div class="intake-stats"><span>🍽️ 今日摄入</span><span>${intakeData.todayIntake} 卡</span></div>
+                <div class="intake-stats"><span>🏃 今日消耗</span><span>${intakeData.todayExpend} 卡</span></div>
+                <div class="intake-stats"><span>📊 净摄入</span><span>${netIntake} 卡</span></div>
+                <div class="intake-progress"><div class="intake-progress-fill" style="width:${intakePercent}%"></div></div>
+                <div class="intake-buttons">
+                    <div class="intake-btn" onclick="openIntakeModal()">🍽️ 添加摄入</div>
+                    <div class="intake-btn" onclick="openExpendModal()">🏃 添加消耗</div>
+                </div>
+                <div class="intake-list">${recordsHtml || '<div class="empty-quest">暂无记录</div>'}</div>
+            </div>
+            <div class="card">
+                <div class="quest-title">📜 体修功课</div>
+                <div class="quest-list" id="questList">${tasksHtml}</div>
+                <div class="footprint">按住⋮⋮可拖动排序</div>
+            </div>
+        `;
+        
+        bindTaskEvents();
+        initDragAndDrop('questList', '.quest-card', (srcIdx, dstIdx) => {
+            let moduleTasks = tasks.filter(t => t.module === 'tixiu');
+            let activeTasks = moduleTasks.filter(t => !(!t.repeatable && completions.some(c => c.taskId === t.id && c.date === getTodayStr())));
+            let sorted = getSortedTasks(activeTasks);
+            if (srcIdx >= 0 && srcIdx < sorted.length && dstIdx >= 0 && dstIdx < sorted.length) {
+                let newOrder = [...sorted];
+                let [moved] = newOrder.splice(srcIdx, 1);
+                newOrder.splice(dstIdx, 0, moved);
+                updateTaskOrder(newOrder);
+                renderCurrentPage();
+            }
+        });
+    }
+
+    function renderSettingsPage(container) {
+        let total = getTotalXp();
+        let realm = getTotalRealm();
+        let isZhenXian = checkZhenXian();
+        let totalPercent = (total % 1000) / 1000 * 100;
+        
+        let dates = [...new Set(completions.map(c => c.date))];
+        let year = new Date().getFullYear();
+        let month = new Date().getMonth();
+        let calendarHtml = renderCalendar(year, month, dates);
+        
+        let achievementsHtml = '';
+        for (let ach of achievements) {
+            let unlocked = unlockedAchievements.includes(ach.id);
+            achievementsHtml += `<div class="completed-item" style="opacity:${unlocked?1:0.6}">🏆 ${escapeHtml(ach.name)} ${unlocked?'✅':'🎯'+ach.target}</div>`;
+        }
+        
+        let lichenIndex = getCurrentLevelIndex(lichen.xp, LICHEN_LEVELS);
+        let lichenTotal = LICHEN_LEVELS.length - 1;
+        let wudaoIndex = getCurrentLevelIndex(wudao.xp, WUDAO_LEVELS);
+        let wudaoTotal = WUDAO_LEVELS.length - 1;
+        let tixiuIndex = getCurrentLevelIndex(tixiu.xp, TIXIU_LEVELS);
+        let tixiuTotal = TIXIU_LEVELS.length - 1;
+        
+        let lichenPercent = (lichenIndex / lichenTotal) * 100;
+        let wudaoPercent = (wudaoIndex / wudaoTotal) * 100;
+        let tixiuPercent = (tixiuIndex / tixiuTotal) * 100;
+        
+        container.innerHTML = `
+            <div class="card">
+                <div class="title-section"><div class="system-name">天命总览</div></div>
+                <div class="cultivation-panel"><span class="realm-name">${isZhenXian ? '真仙' : realm.name}</span><span class="realm-level">总修为 ${total}</span></div>
+                <div class="xp-bar-bg"><div class="xp-bar-fill" style="width:${totalPercent}%"></div></div>
+            </div>
+            
+            <div class="card">
+                <div class="quest-title">📊 修行阶段</div>
+                <div class="stage-grid">
+                    <div class="stage-progress-card" onclick="switchToPage('lichen')">
+                        <div class="stage-icon">🌿</div>
+                        <div class="stage-name">历尘</div>
+                        <div class="stage-progress">${lichenIndex} / ${lichenTotal}</div>
+                        <div class="stage-total">${LICHEN_LEVELS[lichenIndex]?.name || '红尘炼心'}</div>
+                        <div class="stage-bar-bg"><div class="stage-bar-fill" style="width:${lichenPercent}%"></div></div>
+                    </div>
+                    <div class="stage-progress-card" onclick="switchToPage('wudao')">
+                        <div class="stage-icon">📖</div>
+                        <div class="stage-name">悟道</div>
+                        <div class="stage-progress">${wudaoIndex} / ${wudaoTotal}</div>
+                        <div class="stage-total">${WUDAO_LEVELS[wudaoIndex]?.name || '证道飞升'}</div>
+                        <div class="stage-bar-bg"><div class="stage-bar-fill" style="width:${wudaoPercent}%"></div></div>
+                    </div>
+                    <div class="stage-progress-card" onclick="switchToPage('tixiu')">
+                        <div class="stage-icon">💪</div>
+                        <div class="stage-name">体修</div>
+                        <div class="stage-progress">${tixiuIndex} / ${tixiuTotal}</div>
+                        <div class="stage-total">${TIXIU_LEVELS[tixiuIndex]?.name || '金刚不坏'}</div>
+                        <div class="stage-bar-bg"><div class="stage-bar-fill" style="width:${tixiuPercent}%"></div></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="action-buttons">
+                    <div class="action-btn" onclick="openAchievementModal()">🏆 创建称号</div>
+                    <div class="action-btn" onclick="exportData()">📤 备份</div>
+                    <div class="action-btn" onclick="importData()">📥 恢复</div>
+                </div>
+                <div class="action-btn" onclick="resetDemo()" style="background:#f0ede6">🔄 重置</div>
+                <input type="file" id="importFile" accept=".json" style="display:none;">
+                
+                <h3 style="margin: 16px 0 8px; font-size:14px;">🏆 称号录</h3>
+                <div id="achievementsList">${achievementsHtml || '<div class="empty-quest">暂无称号</div>'}</div>
+                
+                <h3 style="margin: 16px 0 8px; font-size:14px;">📅 修行记录</h3>
+                <div class="calendar" id="calendarContainer">${calendarHtml}</div>
+                <div id="completedList" class="completed-list"></div>
+            </div>
+        `;
+        
+        document.querySelectorAll('.calendar-day').forEach(day => {
+            day.addEventListener('click', () => {
+                let date = day.getAttribute('data-date');
+                let dayCompletions = completions.filter(c => c.date === date);
+                let listHtml = `<div style="font-weight:500; margin-bottom:6px;">📅 ${date}</div>`;
+                for (let c of dayCompletions) {
+                    let icon = c.module === 'lichen' ? '🌿' : (c.module === 'wudao' ? '📖' : '💪');
+                    listHtml += `<div class="completed-item">${icon} ${escapeHtml(c.name)} +${c.xp}</div>`;
+                }
+                if (dayCompletions.length === 0) listHtml += '<div class="completed-item">🌿 无修行记录</div>';
+                document.getElementById('completedList').innerHTML = listHtml;
+            });
+        });
+    }
+
+    function switchToPage(page) {
+        currentPage = page;
+        document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+        document.querySelector(`.nav-item[data-page="${page}"]`).classList.add('active');
+        renderCurrentPage();
+    }
+
+    function renderCalendar(year, month, dates) {
+        let firstDay = new Date(year, month, 1).getDay();
+        let daysInMonth = new Date(year, month + 1, 0).getDate();
+        let html = `<div class="calendar-header"><button onclick="window.prevMonth()">◀</button><span>${year}年 ${month+1}月</span><button onclick="window.nextMonth()">▶</button></div>
+            <div class="calendar-weekdays"><span>日</span><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span></div><div class="calendar-days">`;
+        for (let i = 0; i < firstDay; i++) html += `<div></div>`;
+        for (let d = 1; d <= daysInMonth; d++) {
+            let dateStr = `${year}-${(month+1).toString().padStart(2,'0')}-${d.toString().padStart(2,'0')}`;
+            let has = dates.includes(dateStr);
+            html += `<div class="calendar-day ${has ? 'has-completed' : ''}" data-date="${dateStr}">${d}</div>`;
+        }
+        html += `</div>`;
+        return html;
+    }
+
+    function bindTaskEvents() {
+        document.querySelectorAll('.quest-btn').forEach(btn => {
+            btn.removeEventListener('click', handleQuestClick);
+            btn.addEventListener('click', handleQuestClick);
+        });
+        document.querySelectorAll('.delete-btn').forEach(btn => {
+            btn.removeEventListener('click', handleDeleteClick);
+            btn.addEventListener('click', handleDeleteClick);
+        });
+    }
+    
+    function handleQuestClick(e) {
+        e.stopPropagation();
+        let id = parseInt(e.target.getAttribute('data-id'));
+        let task = tasks.find(t => t.id === id);
+        if (task) completeTask(task);
+    }
+    
+    function handleDeleteClick(e) {
+        e.stopPropagation();
+        let id = parseInt(e.target.getAttribute('data-id'));
+        deleteTask(id);
+    }
+
+    function saveLichen() { localStorage.setItem(STORAGE.LICHEN, JSON.stringify(lichen)); }
+    function saveWudao() { localStorage.setItem(STORAGE.WUDAO, JSON.stringify(wudao)); }
+    function saveTixiu() { localStorage.setItem(STORAGE.TIXIU, JSON.stringify(tixiu)); }
+    function saveTixiuExtra() { localStorage.setItem(STORAGE.TIXIU_EXTRA, JSON.stringify(tixiuExtra)); }
+    function saveTasks() { localStorage.setItem(STORAGE.TASKS, JSON.stringify(tasks)); }
+    function saveCompletions() { localStorage.setItem(STORAGE.COMPLETIONS, JSON.stringify(completions)); }
+    function saveTaskOrder() { localStorage.setItem(STORAGE.TASK_ORDER, JSON.stringify(taskOrder)); }
+    function saveAchievements() { localStorage.setItem(STORAGE.ACHIEVEMENTS, JSON.stringify(achievements)); localStorage.setItem(STORAGE.UNLOCKED, JSON.stringify(unlockedAchievements)); }
+    function saveCountdown() { localStorage.setItem(STORAGE.COUNTDOWN, JSON.stringify(countdownData)); }
+    function saveIntake() { localStorage.setItem(STORAGE.INTAKE, JSON.stringify(intakeData)); }
+
+    function loadData() {
+        let l = localStorage.getItem(STORAGE.LICHEN);
+        if (l) lichen = JSON.parse(l);
+        else lichen = { xp: 0, level: 1 };
+        let w = localStorage.getItem(STORAGE.WUDAO);
+        if (w) wudao = JSON.parse(w);
+        else wudao = { xp: 0, level: 1 };
+        let t = localStorage.getItem(STORAGE.TIXIU);
+        if (t) tixiu = JSON.parse(t);
+        else tixiu = { xp: 0, level: 1 };
+        let te = localStorage.getItem(STORAGE.TIXIU_EXTRA);
+        if (te) tixiuExtra = JSON.parse(te);
+        else tixiuExtra = { todayBasic: false, todayWorkout: false, streak: 0, lastDate: null, bigWorkoutCount: 0 };
+        let tasksStored = localStorage.getItem(STORAGE.TASKS);
+        tasks = tasksStored ? JSON.parse(tasksStored) : [];
+        let compStored = localStorage.getItem(STORAGE.COMPLETIONS);
+        completions = compStored ? JSON.parse(compStored) : [];
+        let orderStored = localStorage.getItem(STORAGE.TASK_ORDER);
+        taskOrder = orderStored ? JSON.parse(orderStored) : {};
+        let achStored = localStorage.getItem(STORAGE.ACHIEVEMENTS);
+        achievements = achStored ? JSON.parse(achStored) : [];
+        let unlockedStored = localStorage.getItem(STORAGE.UNLOCKED);
+        unlockedAchievements = unlockedStored ? JSON.parse(unlockedStored) : [];
+        let cdStored = localStorage.getItem(STORAGE.COUNTDOWN);
+        if (cdStored) countdownData = JSON.parse(cdStored);
+        else countdownData = { targetDate: null, description: "飞升之日" };
+        let intakeStored = localStorage.getItem(STORAGE.INTAKE);
+        if (intakeStored) intakeData = JSON.parse(intakeStored);
+        else intakeData = { todayIntake: 0, todayExpend: 0, records: [], lastDate: null };
+        
+        checkAndResetTixiu();
+        checkAndResetIntake();
+    }
+
+    function addNewTask() {
+        let name = document.getElementById('taskName').value.trim();
+        if (!name) { alert("请输入功课名称"); return; }
+        let type = document.getElementById('taskType').value;
+        let module = currentPage === 'lichen' ? 'lichen' : (currentPage === 'wudao' ? 'wudao' : 'tixiu');
+        let xpReward = parseInt(document.getElementById('taskXP').value) || 1;
+        let repeatable = document.getElementById('repeatable').checked;
+        let scheduledEnable = document.getElementById('scheduledEnable').checked;
+        let scheduledTime = scheduledEnable ? document.getElementById('scheduledTime').value : null;
+        tasks.push({ id: Date.now(), name, type, module, xpReward, repeatable, scheduledTime });
+        saveTasks();
+        renderCurrentPage();
+        closeTaskModal();
+        document.getElementById('taskName').value = '';
+        document.getElementById('repeatable').checked = false;
+        document.getElementById('scheduledEnable').checked = false;
+        document.getElementById('scheduledTimeBox').style.display = 'none';
+        document.getElementById('taskXP').value = 1;
+    }
+
+    function addAchievement() {
+        let name = document.getElementById('achievementName').value.trim();
+        let type = document.getElementById('achievementType').value;
+        let target = parseInt(document.getElementById('achievementTarget').value);
+        let reward = parseInt(document.getElementById('achievementReward').value);
+        if (!name || !target) { alert("请填写完整"); return; }
+        achievements.push({ id: Date.now(), name, type, target, reward });
+        saveAchievements();
+        closeAchievementModal();
+        renderCurrentPage();
+        document.getElementById('achievementName').value = '';
+        document.getElementById('achievementTarget').value = '';
+        document.getElementById('achievementReward').value = '';
+    }
+
+    function setCountdown() {
+        let date = document.getElementById('countdownDate').value;
+        let desc = document.getElementById('countdownDesc').value;
+        if (date) {
+            countdownData.targetDate = date;
+            countdownData.description = desc || "飞升之日";
+            saveCountdown();
+            renderCurrentPage();
+        }
+        closeCountdownModal();
+    }
+
+    function resetDemo() { if (confirm("重置所有数据？")) { localStorage.clear(); location.reload(); } }
+
+    function exportData() {
+        let data = { lichen, wudao, tixiu, tixiuExtra, tasks, completions, taskOrder, achievements, unlockedAchievements, countdownData, intakeData };
+        let blob = new Blob([JSON.stringify(data)], {type: "application/json"});
+        let a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = `三身诀_备份_${new Date().toISOString().slice(0,19)}.json`;
+        a.click();
+        URL.revokeObjectURL(a.href);
+    }
+
+    function importData() {
+        let input = document.getElementById('importFile');
+        input.onchange = (e) => {
+            let file = e.target.files[0];
+            let reader = new FileReader();
+            reader.onload = (ev) => {
+                try {
+                    let data = JSON.parse(ev.target.result);
+                    if (data.lichen) lichen = data.lichen;
+                    if (data.wudao) wudao = data.wudao;
+                    if (data.tixiu) tixiu = data.tixiu;
+                    if (data.tixiuExtra) tixiuExtra = data.tixiuExtra;
+                    if (data.tasks) tasks = data.tasks;
+                    if (data.completions) completions = data.completions;
+                    if (data.taskOrder) taskOrder = data.taskOrder;
+                    if (data.achievements) achievements = data.achievements;
+                    if (data.unlockedAchievements) unlockedAchievements = data.unlockedAchievements;
+                    if (data.countdownData) countdownData = data.countdownData;
+                    if (data.intakeData) intakeData = data.intakeData;
+                    saveLichen(); saveWudao(); saveTixiu(); saveTixiuExtra(); saveTasks(); saveCompletions(); saveTaskOrder(); saveAchievements(); saveCountdown(); saveIntake();
+                    renderCurrentPage();
+                    alert("恢复成功");
+                } catch(err) { alert("文件无效"); }
+            };
+            reader.readAsText(file);
+        };
+        input.click();
+    }
+
+    function escapeHtml(str) { return str.replace(/[&<>]/g, m => m === '&' ? '&amp;' : m === '<' ? '&lt;' : '&gt;'); }
+
+    document.getElementById('scheduledEnable').addEventListener('change', (e) => {
+        document.getElementById('scheduledTimeBox').style.display = e.target.checked ? 'block' : 'none';
+    });
+    document.getElementById('confirmAddTask').addEventListener('click', addNewTask);
+    document.getElementById('confirmAddAchievement').addEventListener('click', addAchievement);
+    document.getElementById('confirmCountdown').addEventListener('click', setCountdown);
+    document.getElementById('confirmAddIntake').addEventListener('click', () => {
+        let name = document.getElementById('intakeName').value;
+        let cal = parseInt(document.getElementById('intakeCal').value);
+        if (name && cal) addIntake(name, cal);
+        closeIntakeModal();
+        document.getElementById('intakeName').value = '';
+        document.getElementById('intakeCal').value = '';
+    });
+    document.getElementById('confirmAddExpend').addEventListener('click', () => {
+        let name = document.getElementById('expendName').value;
+        let cal = parseInt(document.getElementById('expendCal').value);
+        if (name && cal) addExpend(name, cal);
+        closeExpendModal();
+        document.getElementById('expendName').value = '';
+        document.getElementById('expendCal').value = '';
+    });
+
+    function closeTaskModal() { document.getElementById('taskModal').classList.remove('show'); }
+    function closeAchievementModal() { document.getElementById('achievementModal').classList.remove('show'); }
+    function closeCountdownModal() { document.getElementById('countdownModal').classList.remove('show'); }
+    function closeIntakeModal() { document.getElementById('intakeModal').classList.remove('show'); }
+    function closeExpendModal() { document.getElementById('expendModal').classList.remove('show'); }
+    function openAchievementModal() { document.getElementById('achievementModal').classList.add('show'); }
+    function openCountdownModal() { document.getElementById('countdownModal').classList.add('show'); }
+    function openIntakeModal() { document.getElementById('intakeModal').classList.add('show'); }
+    function openExpendModal() { document.getElementById('expendModal').classList.add('show'); }
+    
+    let currentYear = new Date().getFullYear();
+    let currentMonth = new Date().getMonth();
+    window.prevMonth = () => { currentMonth--; if (currentMonth < 0) { currentMonth = 11; currentYear--; } renderSettingsPage(document.getElementById('mainContent')); };
+    window.nextMonth = () => { currentMonth++; if (currentMonth > 11) { currentMonth = 0; currentYear++; } renderSettingsPage(document.getElementById('mainContent')); };
+    window.openAchievementModal = openAchievementModal;
+    window.openCountdownModal = openCountdownModal;
+    window.openIntakeModal = openIntakeModal;
+    window.openExpendModal = openExpendModal;
+    window.doBasicWorkout = doBasicWorkout;
+    window.doDailyWorkout = doDailyWorkout;
+    window.doBigWorkout = doBigWorkout;
+    window.switchToPage = switchToPage;
+    window.exportData = exportData;
+    window.importData = importData;
+    window.resetDemo = resetDemo;
+    window.closeTaskModal = closeTaskModal;
+    window.closeAchievementModal = closeAchievementModal;
+    window.closeCountdownModal = closeCountdownModal;
+    window.closeIntakeModal = closeIntakeModal;
+    window.closeExpendModal = closeExpendModal;
+
+    function init() {
+        loadData();
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', () => {
+                document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+                item.classList.add('active');
+                currentPage = item.getAttribute('data-page');
+                renderCurrentPage();
+            });
+        });
+        document.getElementById('fabBtn').addEventListener('click', () => document.getElementById('taskModal').classList.add('show'));
+        document.querySelector('.nav-item[data-page="lichen"]').classList.add('active');
+        renderCurrentPage();
+        dailySettlement();
+    }
+    init();
+</script>
+</body>
+</html>
